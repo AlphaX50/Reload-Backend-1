@@ -329,7 +329,6 @@ function updatecfgomg(dailyItems, featuredItems) {
     dailyItems.forEach((item, index) => {
         catalogConfig[`daily${index + 1}`] = {
             itemGrants: formatitemgrantsyk(item),
-            name: item.name || "Unknown Name",
             price: notproperpricegen(item)
         };
     });
@@ -337,17 +336,12 @@ function updatecfgomg(dailyItems, featuredItems) {
     featuredItems.forEach((item, index) => {
         catalogConfig[`featured${index + 1}`] = {
             itemGrants: formatitemgrantsyk(item),
-            name: item.name || "Unknown Name",
             price: notproperpricegen(item)
         };
     });
 
-    try {
-        fs.writeFileSync(catalogcfg, JSON.stringify(catalogConfig, null, 2), 'utf-8');
-        log.AutoRotation("The item shop has rotated!");
-    } catch (error) {
-        log.error("Failed to save catalog config file:", error.message || error);
-    }
+    fs.writeFileSync(catalogcfg, JSON.stringify(catalogConfig, null, 2), 'utf-8');
+    log.AutoRotation("The item shop has rotated!");
 }
 
 async function fetchItemIcon(itemName) {
